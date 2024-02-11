@@ -25,9 +25,7 @@ public:
     }
 
     void operator()( )
-    {
-        std::cout << " operator ";
-    }
+    {}
 };
 
 #define TRACK TimeTracker function_profiler( __func__ )
@@ -35,12 +33,24 @@ public:
 void someFun()
 {
     TRACK;
-    std::cout << "\n function body \n";
+    std::cout << "function body\n";
+}
+
+void nestedFunction()
+{
+    TRACK;
+    auto lambda = []()
+    {
+        TRACK;
+        std::cout << "lambda body\n";
+    };
+    std::cout << "nestedFunction body\n";
 }
 
 int main()
 {
     someFun();
+    nestedFunction();
 
     cout << "Hello World!" << endl;
     return 0;
